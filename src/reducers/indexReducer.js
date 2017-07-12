@@ -1,3 +1,6 @@
+var index = require("../constants/index.json")
+
+
 export default function (
     state={
         index: ""
@@ -5,7 +8,7 @@ export default function (
 {
     switch(action.type){
         case "DEFAULT_STATE":
-            state = {...state, index: "Hello world"}
+            state = {...state, index: index.home}
             break;
     }
     

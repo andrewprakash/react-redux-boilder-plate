@@ -1,10 +1,13 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var CleanWebpackPlugin = require("clean-webpack-plugin")
+var CleanWebpackPlugin = require("clean-webpack-plugin");
+var ZopfliPlugin = require("zopfli-webpack-plugin");
 var webpack = require('webpack');
 
 const isPRODUCTION = process.env.NODE_ENV === 'production';
-const isDEVELOPMENT = process.env.NODE_ENV === 'development';
-const externals = {};
+
+console.log("Starting " + process.env.NODE_ENV + " build");
+
+var externals = {}
 
 var plugins = [
             new ExtractTextPlugin({
@@ -18,25 +21,25 @@ var plugins = [
             new webpack.EnvironmentPlugin(['NODE_ENV']),
             new CleanWebpackPlugin(['dist/css/*', 'dist/js/*', 'dist/fonts/*','dist/imgs/*'],{
                 verbose: true,
+            }),
+            new ZopfliPlugin({
+                asset: "[path].gz[query]",
+                algorithm: "zopfli",
+                test: /\.(js|html|css)$/,
+                threshold: 10240,
+                minRatio: 0.8
             })
-            
     ]
 
 if(isPRODUCTION){
-    console.log("production build");
     externals = 
         {
-            'react' : "React",
-            'react-dom': 'ReactDOM',
-            'redux': 'createStore',
-            'redux': 'applyMiddleware',
-            'redux': 'combineReducers',
-            'redux': 'compose',
-            'react-redux': "Provider",
-            'react-router': "ReactRouter",
-            'react-router-dom': "Route",
-            'react-router-dom': "Switch",
-            'react-router-dom': "BrowserRouter"
+            "react": "React",
+            "react-dom": "ReactDOM",
+            "react-router": "ReactRouter",
+            "react-router-dom": "ReactRouterDOM",
+            "redux": "Redux",
+            "react-redux": "ReactRedux"
         }
     plugins = plugins.concat([
             new webpack.optimize.UglifyJsPlugin({
@@ -45,14 +48,12 @@ if(isPRODUCTION){
                     drop_console: true
                 },
                 comments: false
-            })
+            }),
         ])
-}else{
-    console.log("development build")
 }
 
 module.exports = {
-    externals:  externals,
+    externals: externals,
     entry: {
         app: ['babel-polyfill','./src/main.js', './src/styles/style.js'],
         vendor: ['redux-thunk', 'redux-logger'],
@@ -130,5 +131,5 @@ module.exports = {
                 exclude: /node_modules/
             }
         ]
-    },
+    }
 }

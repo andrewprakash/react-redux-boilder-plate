@@ -14,7 +14,6 @@
   "license": "ISC",
   "private": true,
   "devDependencies": {
-    "caniuse-db": "^1.0.30000684",
     "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "0.26.1",
@@ -29,9 +28,11 @@
     "postcss-loader": "^2.0.5",
     "style-loader": "0.13.1",
     "url-loader": "^0.5.8",
-    "webpack": "2.2.1"
+    "webpack": "2.2.1",
+    "zopfli-webpack-plugin": "^0.1.0"
   },
   "dependencies": {
+    "caniuse-db": "^1.0.30000684",
     "express": "^4.15.3",
     "babel-core": "6.23.1",
     "babel-loader": "6.2.10",
