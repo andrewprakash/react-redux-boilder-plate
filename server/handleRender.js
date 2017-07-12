@@ -14,15 +14,8 @@ export function handleRender(req, res, options={}){
     if(options.hasOwnProperty("url")){
         url =  options['url'] + req.url
     }
-    if(options.hasOwnProperty("event")){
-        data = {
-            event:{
-                event: options["event"]
-            }
-        }
-    }
     const context = {};
-    const store = createStore(reducers, data);
+    const store = createStore(reducers, data); // set the store date for initial state
     const initialState = JSON.stringify(store.getState()).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--');
     const reactComponent = renderToString(
         <Provider store={store}>
@@ -33,5 +26,5 @@ export function handleRender(req, res, options={}){
             </StaticRouter>
         </Provider>
         )
-        res.status(200).render('index',{reactComponent, initialState})
+        res.status(200).render('index',{reactComponent, initialState}) // render the component with initial store data
 }

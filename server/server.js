@@ -27,7 +27,6 @@ const app = express();
 const compression = require("compression") // use for content encoding gzip
 
 // Route handlers go there
-var events = require("./routes/events");
 var index = require("./routes/index")
 
 
@@ -47,7 +46,6 @@ if(process.env.NODE_ENV === 'production'){
 app.set('view engine', 'ejs') // view engine to enable embedded javascript
 
 // routes namespaces
-app.use("/events", events)
 app.use("/", index);
 
 

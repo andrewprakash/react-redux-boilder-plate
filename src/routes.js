@@ -1,17 +1,7 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 
-import Home from  "./components/home/home.jsx"
-import About from  "./components/about/about.jsx"
-
-//Events
-import Event from './components/events/event.jsx'
-
-// Base Components
-import Modal from "./components/modal/modal.jsx"
-import Header from  "./components/application/header.jsx"
-import Footer from  "./components/application/footer.jsx"
-import Toggle from "./components/application/toggleMenu.jsx"
+import Home from  "./components/home/Home.jsx"
 
 const Status = function ({ code, children }){
   return (
@@ -34,15 +24,10 @@ const NotFound = function(){
 }
 const routes = (
     <div>
-        <Modal/>
-        <Header/>
-        <Toggle/>
         <Switch>
-            <Route path='/events/:year/:month/:name' component={Event} />
             <Route path="/" component={Home}/>  
             <Route component={NotFound}/>
         </Switch>
-        <Footer/>
     </div>
     )
     
