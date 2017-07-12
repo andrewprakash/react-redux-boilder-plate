@@ -1,9 +1,26 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var CleanWebpackPlugin = require("clean-webpack-plugin")
 var webpack = require('webpack');
 
 const isPRODUCTION = process.env.NODE_ENV === 'production';
 const isDEVELOPMENT = process.env.NODE_ENV === 'development';
 const externals = {};
+
+var plugins = [
+            new ExtractTextPlugin({
+                filename: 'css/index.css',
+                allChunks: true
+            }),
+            new webpack.optimize.CommonsChunkPlugin({
+                name: "vendor",
+                filename: "js/vendor.bundle.js"
+            }),
+            new webpack.EnvironmentPlugin(['NODE_ENV']),
+            new CleanWebpackPlugin(['dist/css/*', 'dist/js/*', 'dist/fonts/*','dist/imgs/*'],{
+                verbose: true,
+            })
+            
+    ]
 
 if(isPRODUCTION){
     console.log("production build");
@@ -19,39 +36,19 @@ if(isPRODUCTION){
             'react-router': "ReactRouter",
             'react-router-dom': "Route",
             'react-router-dom': "Switch",
-            'react-router-dom': "BrowserRouter",
-            'algoliasearch':'algoliasearch'
+            'react-router-dom': "BrowserRouter"
         }
-    var plugins = [
-            new ExtractTextPlugin({
-                filename: 'css/index.css',
-                allChunks: true
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: "vendor",
-                filename: "js/vendor.bundle.js"
-            }),
+    plugins = plugins.concat([
             new webpack.optimize.UglifyJsPlugin({
                 compress: {
                     warnings: false,
                     drop_console: true
                 },
                 comments: false
-            }),
-            new webpack.EnvironmentPlugin(['NODE_ENV'])
-        ]
+            })
+        ])
 }else{
     console.log("development build")
-    var plugins = [
-            new ExtractTextPlugin({
-                filename: 'css/index.css',
-                allChunks: true
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: "vendor",
-                filename: "js/vendor.bundle.js"
-            })
-        ]
 }
 
 module.exports = {
