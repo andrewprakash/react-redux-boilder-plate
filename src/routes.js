@@ -1,7 +1,13 @@
 import React from 'react'
 import {Route, Switch} from 'react-router-dom'
 
+//Dynamic Components
 import Home from  "./components/home/Home.jsx"
+
+//Static Components
+import Header from "./components/application/Header.jsx"
+
+
 
 const Status = function ({ code, children }){
   return (
@@ -24,6 +30,7 @@ const NotFound = function(){
 }
 const routes = (
     <div>
+        <Header/>
         <Switch>
             <Route path="/" component={Home}/>  
             <Route component={NotFound}/>

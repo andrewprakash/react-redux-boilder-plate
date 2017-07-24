@@ -32,5 +32,5 @@ const Routes = (
 )
 
 render(
-  Routes, document.getElementById('app')
+  Routes, document.getElementById('wrapper')
 );

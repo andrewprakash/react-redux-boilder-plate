@@ -1,6 +1,6 @@
-# set the base image to Debian
-# https://hub.docker.com/_/debian/
-FROM ubuntu:14:04
+# set the base image to Ubuntu
+# https://hub.docker.com/_/ubuntu/
+FROM ubuntu:14.04
 
 # replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh

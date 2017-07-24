@@ -1,6 +1,5 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var CleanWebpackPlugin = require("clean-webpack-plugin");
-var ZopfliPlugin = require("zopfli-webpack-plugin");
 var webpack = require('webpack');
 
 const isPRODUCTION = process.env.NODE_ENV === 'production';
@@ -19,15 +18,17 @@ var plugins = [
                 filename: "js/vendor.bundle.js"
             }),
             new webpack.EnvironmentPlugin(['NODE_ENV']),
-            new CleanWebpackPlugin(['dist/css/*', 'dist/js/*', 'dist/fonts/*','dist/imgs/*'],{
-                verbose: true,
-            }),
-            new ZopfliPlugin({
-                asset: "[path].gz[query]",
-                algorithm: "zopfli",
-                test: /\.(js|html|css)$/,
-                threshold: 10240,
-                minRatio: 0.8
+            new CleanWebpackPlugin(
+                [
+                    'dist/js/app.js', 
+                    'dist/js/app.js.map', 
+                    'dist/js/vendor.bundle.js',
+                    'dist/js/vendor.bundle.js.map',
+                    'dist/css/index.css', 
+                    'dist/css/index.css.map'
+                ],
+            {
+                watch: true
             })
     ]
 

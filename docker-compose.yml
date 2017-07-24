@@ -1,12 +1,21 @@
 version: "2"
 services:
-  web:
+  app-web:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: npm run dev
+    image: app-web
+    command: npm run dev-server
     volumes:
       - .:/app
       - /app/node_modules
     ports:
       - 3000:3000
+  app:
+    image: app-web
+    command: npm run dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - app-web

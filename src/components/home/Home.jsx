@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {getIndex} from "../../actions/indexActions.js"
 
+
 @connect((store) =>{
     return {
         index: store.index
@@ -19,9 +20,10 @@ class Home extends React.Component{
     }
     render(){
         return(
-            <div id="home">
-                {this.props.index.index}
-            </div>
+                <section id="page-title">
+                    <div className="container clearfix">
+                    </div>
+                </section>
         )
     }
 }
